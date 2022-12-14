@@ -4,6 +4,7 @@
  Materials Needed:
  <ul>
 <li>~2.5kg of filament</li>
+<li>  Cyanoacrylate/Super Glue</li>
 <li>4ft total of 5/16" or 8mm threaded rods (Check cad file for individal lengths)</li>
 <li>8x 5/16" or 8mm Nyloc nuts</li>
  <li>4ft total of 1/2" or 13mm Aluminum tubing (Will go over threaded rod) </li>
