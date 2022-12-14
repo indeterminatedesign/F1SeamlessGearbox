@@ -6,6 +6,7 @@
 <li>~2.5kg of filament</li>
 <li>4ft total of 5/16" or 8mm threaded rods (Check cad file for individal lengths)</li>
 <li>8x 5/16" or 8mm Nyloc nuts</li>
+ <li>4ft total of 1/2" or 13mm Aluminum tubing (Will go over threaded rod) </li>
 <li>M2/M3/M4 Assorted Socket head bolts (I used a generic assortment from Amazon)</li>
 <li>2x M6x50mm Socket head bolts for oil pump</li>
 <li>6mm Airsoft BB's</li>
