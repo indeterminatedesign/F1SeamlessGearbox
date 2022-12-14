@@ -1,0 +1,76 @@
+/**
+ * Torque control example using voltage control loop.
+ */
+#include <SimpleFOC.h>
+
+// Stepper motor instance
+StepperMotor motor = StepperMotor(50, 2.3, 100);
+// Stepper driver instance
+StepperDriver4PWM driver = StepperDriver4PWM(33, 25, 26, 27, 16, 17);
+// sensor instance
+MagneticSensorI2C sensor = MagneticSensorI2C(AS5600_I2C);
+#define TCAADDR 0x70
+
+void tcaselect(uint8_t i)
+{
+  if (i > 7)
+    return;
+  Serial.println("TCA Select Ran");
+  Wire.beginTransmission(TCAADDR);
+  Wire.write(1 << i);
+  Wire.endTransmission();
+}
+
+void setup()
+{
+
+  SimpleFOCDebug::enable();
+  Serial.begin(115200);
+  Wire.begin();
+  Wire.setClock(400000);
+
+  tcaselect(0);
+
+  // initialize encoder sensor hardware
+  sensor.init();
+  // link the motor to the sensor
+  motor.linkSensor(&sensor);
+
+  // driver config
+  // power supply voltage [V]
+  driver.voltage_power_supply = 12;
+  driver.pwm_frequency = 40000;
+  driver.init();
+
+  Serial.print("Initial Angle: ");
+  Serial.println(sensor.getAngle());
+
+  // link driver
+  motor.linkDriver(&driver);
+
+  // set motion control loop to be used
+  motor.controller = MotionControlType::torque;
+  motor.foc_modulation = FOCModulationType::SinePWM;
+  motor.voltage_sensor_align = 9;
+
+  // initialize motor
+  motor.init();
+
+  // align sensor and start FOC
+  motor.initFOC();
+
+  // setting target voltage
+  motor.target = 12;
+
+  _delay(1000);
+}
+
+void loop()
+{
+
+  // main FOC algorithm function
+  motor.loopFOC();
+
+  // Motion control function
+  motor.move();
+}
